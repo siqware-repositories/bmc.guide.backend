@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Gallery;
-use App\Travel;
+use App\Restaurant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-class TravelController extends Controller
+class RestaurantController extends Controller
 {
     public function getLatLong($url){
         $lat_long = explode('@', $url);
@@ -18,7 +18,7 @@ class TravelController extends Controller
         return $lat_long[0].','.$lat_long[1];
     }
     public function index(){
-        return Travel::with('gallery')->get();
+        return Restaurant::with('gallery')->get();
     }
 
     public function create(){
@@ -55,7 +55,7 @@ class TravelController extends Controller
         $name = uniqid().'-'.time() . '.png';
         Storage::disk('public')->put($name, $img);
 
-        $store = new Travel();
+        $store = new Restaurant();
         $store->gallery_id = $gallery->id;
         $store->title = $validData['title'];
         $store->thumbnail = url(Storage::url($name));
@@ -64,7 +64,7 @@ class TravelController extends Controller
         $store->location_url = $validData['location'];
         $store->category = $validData['category'];
         $store->save();
-        return Travel::with('gallery')->where('id',$store->id)->first();
+        return Restaurant::with('gallery')->where('id',$store->id)->first();
     }
 
     public function show($id){
@@ -85,7 +85,7 @@ class TravelController extends Controller
             'description'=>'required',
             'category'=>'required',
         ]);
-        $travel = Travel::findOrFail($id);
+        $travel = Restaurant::findOrFail($id);
         $travel->title = $validData['title'];
         if (isset($input['thumbnail'])){
             $img = Image::make($thumbnail)->encode('png',100);
@@ -111,10 +111,10 @@ class TravelController extends Controller
                 ]);
             }
         }
-//        return Travel::with('gallery')->where('id',$travel->id)->first();
-}
+//        return Restaurant::with('gallery')->where('id',$travel->id)->first();
+    }
 
     public function destroy($id){
-        Travel::findOrFail($id)->delete();
+        Restaurant::findOrFail($id)->delete();
     }
 }

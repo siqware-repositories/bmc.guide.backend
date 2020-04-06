@@ -23,9 +23,16 @@ Route::post('/user-login', 'UserController@login');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/file-upload', 'FileUploadController');
     Route::resource('/travel', 'TravelController');
+    Route::resource('/settings-main-location', 'MainLocationController');
+    Route::resource('/restaurant', 'RestaurantController');
+    Route::post('/travel-update/{id}', 'TravelController@update');
+    Route::post('/restaurant-update/{id}', 'RestaurantController@update');
+    Route::resource('/gallery-detail', 'GalleryDetailController');
     Route::resource('/travel-category', 'TravelCategoryController');
+    Route::resource('/restaurant-category', 'RestaurantCategoryController');
     Route::post('/image-file-upload', 'FileUploadController@file_upload');
 });
 //mobile api
 Route::get('/travel-api', 'TravelController@index');
-Route::post('/travel-api-view', 'TravelController@store');
+Route::get('/restaurant-api', 'RestaurantController@index');
+//Route::post('/travel-api-view', 'TravelController@store');
