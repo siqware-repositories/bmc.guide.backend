@@ -21,5 +21,8 @@ Route::resource('/user', 'UserController');
 Route::post('/user-register', 'UserController@register');
 Route::post('/user-login', 'UserController@login');
 Route::group(['middleware' => 'auth:api'], function () {
-
+    Route::resource('/file-upload', 'FileUploadController');
+    Route::resource('/travel', 'TravelController');
+    Route::resource('/travel-category', 'TravelCategoryController');
+    Route::post('/image-file-upload', 'FileUploadController@file_upload');
 });
