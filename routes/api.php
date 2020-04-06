@@ -26,3 +26,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('/travel-category', 'TravelCategoryController');
     Route::post('/image-file-upload', 'FileUploadController@file_upload');
 });
+//mobile api
+Route::get('/travel-api', 'TravelController@index');
