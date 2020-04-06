@@ -28,3 +28,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 //mobile api
 Route::get('/travel-api', 'TravelController@index');
+Route::post('/travel-api-view', 'TravelController@store');
