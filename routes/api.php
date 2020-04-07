@@ -35,4 +35,5 @@ Route::group(['middleware' => 'auth:api'], function () {
 //mobile api
 Route::get('/travel-api', 'TravelController@index');
 Route::get('/restaurant-api', 'RestaurantController@index');
-//Route::post('/travel-api-view', 'TravelController@store');
+Route::get('/travel-api-json', 'TravelController@getJson');
+Route::get('/restaurant-api-json', 'RestaurantController@getJson');

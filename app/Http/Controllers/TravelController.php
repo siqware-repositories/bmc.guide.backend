@@ -12,6 +12,9 @@ use Intervention\Image\Facades\Image;
 
 class TravelController extends Controller
 {
+    public function getJson(){
+        return Travel::all();
+    }
     public function getLatLong($url){
         $lat_long = explode('@', $url);
         $lat_long = explode(',', $lat_long[1]);
