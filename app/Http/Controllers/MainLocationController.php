@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\MainLocation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class MainLocationController extends Controller
 {
@@ -20,6 +22,10 @@ class MainLocationController extends Controller
             'name'=>'required',
             'location_url'=>'required',
         ]);
+        $icon = $request->
+        $img = Image::make()->encode('jpg',75);
+        $name = uniqid().'-'.time() . '.jpg';
+        Storage::disk('public')->put($name, $img);
         $gallery = MainLocation::findOrFail($id);
         $gallery->name = $validData['name'];
         $gallery->location = $this->getLatLong($validData['location_url']);

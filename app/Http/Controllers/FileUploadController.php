@@ -17,7 +17,7 @@ class FileUploadController extends Controller
     }
     public function file_upload(Request $request){
         $file = $request->file('file');
-        $img = Image::make($file)->encode('png',100);
+        $img = Image::make($file)->encode('png',90);
         $name = uniqid().'-'.time() . '.png';
         Storage::disk('public')->put($name, $img);
         return response()->json(['path'=>url(Storage::url($name))]);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\TravelCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class TravelCategoryController extends Controller
 {
@@ -16,11 +18,16 @@ class TravelCategoryController extends Controller
     }
 
     public function store(Request $request){
+        $icon = $request->file('icon');
         $validData = $request->validate([
-            'name'=>'required',
+            'name'=>'required'
         ]);
+        $img = Image::make($icon)->encode('png',90);
+        $name = uniqid().'-'.time() . '.png';
+        Storage::disk('public')->put($name, $img);
         $store = new TravelCategory();
         $store->name = $validData['name'];
+        $store->icon = url(Storage::url($name));
         $store->save();
         return TravelCategory::findOrFail($store->id);
     }

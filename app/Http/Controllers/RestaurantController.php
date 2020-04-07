@@ -41,8 +41,8 @@ class RestaurantController extends Controller
         $gallery->description = 'Travel Description';
         $gallery->save();
         foreach ($galleries as $file){
-            $img = Image::make($file)->encode('jpg',75);
-            $name = uniqid().'-'.time() . '.jpg';
+            $img = Image::make($file)->encode('png',90);
+            $name = uniqid().'-'.time() . '.png';
             Storage::disk('public')->put($name, $img);
             DB::table('gallery_details')->insert([
                 'gallery_id'=>$gallery->id,
@@ -51,8 +51,8 @@ class RestaurantController extends Controller
                 'updated_at'=>Carbon::now(),
             ]);
         }
-        $img = Image::make($thumbnail)->encode('jpg',75);
-        $name = uniqid().'-'.time() . '.jpg';
+        $img = Image::make($thumbnail)->encode('png',90);
+        $name = uniqid().'-'.time() . '.png';
         Storage::disk('public')->put($name, $img);
 
         $store = new Restaurant();
@@ -88,8 +88,8 @@ class RestaurantController extends Controller
         $travel = Restaurant::findOrFail($id);
         $travel->title = $validData['title'];
         if (isset($input['thumbnail'])){
-            $img = Image::make($thumbnail)->encode('jpg',75);
-            $name = uniqid().'-'.time() . '.jpg';
+            $img = Image::make($thumbnail)->encode('png',90);
+            $name = uniqid().'-'.time() . '.png';
             Storage::disk('public')->put($name, $img);
             $travel->thumbnail = url(Storage::url($name));
         }
@@ -100,8 +100,8 @@ class RestaurantController extends Controller
         $travel->save();
         if (isset($input['galleries'])) {
             foreach ($galleries as $file) {
-                $img = Image::make($file)->encode('jpg', 100);
-                $name = uniqid() . '-' . time() . '.jpg';
+                $img = Image::make($file)->encode('png', 90);
+                $name = uniqid() . '-' . time() . '.png';
                 Storage::disk('public')->put($name, $img);
                 DB::table('gallery_details')->insert([
                     'gallery_id' => $travel->gallery_id,

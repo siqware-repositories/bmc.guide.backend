@@ -21,7 +21,7 @@ class CreateRestaurantsTable extends Migration
             $table->longText('description');
             $table->string('location');
             $table->text('location_url');
-            $table->string('category')->nullable()->default('default');
+            $table->bigInteger('restaurant_category_id')->unsigned();
             $table->boolean('status')->default(false);
             $table->bigInteger('views')->nullable()->default(0);
             $table->foreign('gallery_id')
